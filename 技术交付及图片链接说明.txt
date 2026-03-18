@@ -1,0 +1,103 @@
+💻 前端技术交付文档 (Frontend Technical Handoff Document)
+1. 核心架构 (Core Architecture)
+
+纯原生开发 (Vanilla HTML/CSS/JS)：没有使用任何第三方框架（如 Bootstrap, Tailwind, React, jQuery 等）。代码极其轻量（Lightweight），打包在一个独立文件内，确保极速加载（Fast First Contentful Paint）和最高的渲染性能。
+
+字体引入 (Typography)：统一调用 Google Fonts 的 Montserrat 无衬线字体，保持现代极简风格。
+
+2. 响应式布局策略 (Responsive Layout Strategy)
+
+媒体查询 (Media Queries)：采用 Desktop-first（桌面端优先）策略，断点设置在 max-width: 1024px（平板）和 max-width: 768px（手机端）。
+
+商品网格障眼法 (Product Grid Trick)：
+
+使用 CSS Grid 布局。
+
+PC端：HTML 中写有 4 个产品，但通过 :nth-child(4) { display: none; } 隐藏第 4 个，呈现完美的 3 列布局。
+
+移动端：通过媒体查询释放第 4 个产品 (display: block)，自动形成 2x2 的严谨对称方阵。
+
+长宽比控制 (Aspect Ratio Control)：在手机端放弃了 100vh 的全屏高度，大量使用 aspect-ratio 属性（如首屏轮播图 3 / 4，品牌故事 9 / 16），确保针对不同机型，图片都能 100% 完整显示，绝不被裁切。
+
+3. 媒体与静态资源处理 (Asset & Art Direction)
+
+画境切换 (Picture Tag)：在 A+ 模块使用了 <picture> 和 <source> 标签。在 PC 端加载 16:9 横图，在屏幕宽度 <768px 时自动请求并加载移动端专属的 1:1 方图（如 am1.jpg），避免图片拉伸，同时节省移动端带宽。
+
+悬停动效 (Hover Effects)：商品卡片使用双图绝对定位（Absolute Positioning）堆叠，通过 CSS 的 opacity 和 transform: scale() 实现丝滑的悬停主图切换与轻微放大效果。
+
+4. 核心 JS 交互逻辑 (JavaScript Interactions)
+
+首屏轮播 (Hero Carousel)：基于 CSS opacity 的交叉淡入淡出（Crossfade）。包含自动播放（Auto-play）、用户点击后暂停计时器（Pause on interaction）以及防误触重启机制。
+
+A+ 横向滚动 (Horizontal Scroll & Center Focus)：
+
+实现了原生鼠标拖拽滚动（Drag-to-scroll）功能。
+
+视口居中高亮 (Viewport Center Detection)：实时计算滚动容器与子元素的坐标，距离视口中心最近的卡片会被赋予 .is-active 类名进行放大高亮。
+
+触底修复 (Scroll Boundary Logic)：针对最后一张图无法绝对居中的通病，加入了右侧边界检测逻辑。当 scrollLeft + clientWidth >= scrollWidth 时，强制最后一张图片激活放大。
+
+5. 基础防盗机制 (Basic Content Protection)
+
+通过 CSS user-select: none 防止文本批量选中。
+
+通过 HTML oncontextmenu="return false;" 屏蔽了网页的鼠标右键菜单，增加普通用户盗图的摩擦成本（增加阻力）。。
+
+
+📂 desktop (电脑端图片及通用产品图)
+建议：该文件夹主要存放宽屏大图及 1:1 的商品通用方图。
+
+Brand Logo (品牌标志)
+
+logo.png - Top navigation bar transparent logo (顶部导航栏透明 Logo)
+
+Hero Carousel (首屏轮播图 - PC端)
+建议比例 16:9，推荐尺寸 2560x1440
+
+b1.jpg - Hero slide 1: The vmate Collection (轮播图 1：vmate 全家福)
+
+b2.jpg - Hero slide 2: Shining Star (轮播图 2：星耀系列)
+
+b3.jpg - Hero slide 3: Streamer Collection (轮播图 3：流光系列)
+
+b4.jpg - Hero slide 4: Aura Series (轮播图 4：悦系列)
+
+Brand Story (品牌故事)
+建议宽度 2560px
+
+bs.png - Full-width brand story background (Why vmate 品牌故事横屏背景图)
+
+Astrum Collection (星芒系列商品图)
+尺寸 1:1 方图
+
+w1.jpg / w2.jpg - White Tea Muse: Main / Hover image (白茶缪斯：主图 / 悬停图)
+
+d1.jpg / d2.jpg - Dreamy Lavender: Main / Hover image (梦幻薰衣草：主图 / 悬停图)
+
+o1.jpg / o2.jpg - Osmanthus Moon: Main / Hover image (桂花映月：主图 / 悬停图)
+
+ds1.jpg / ds2.jpg - Discovery Set: Main / Hover image (探索套装：主图 / 悬停图) 注：此产品仅在移动端展示
+
+A+ Content (A+ 模块展示图 - PC端)
+建议横图
+
+image_0.png - Flawless Integration (A+ 图 1：完美融合)
+
+a2.jpg - Crystal Aesthetics (A+ 图 2：水晶美学)
+
+a1.jpg - Natural Elements (A+ 图 3：自然元素)
+
+Explore Best Sellers (畅销系列商品图)
+尺寸 1:1 方图
+
+s1.jpg / s2.jpg - Shining Star Metallic Edition: Main / Hover image (星耀系列金属版：主图 / 悬停图)
+
+st1.jpg / st2.jpg - Streamer Collection Gradient Set: Main / Hover image (流光系列渐变套装：主图 / 悬停图)
+
+j1.jpg / j2.jpg - Aura Series Essential Oil Refill: Main / Hover image (悦系列补充装：主图 / 悬停图)
+
+ac1.jpg / ac2.jpg - Aura Series Car Clip: Main / Hover image (悦系列风口夹：主图 / 悬停图) 注：此产品仅在移动端展示
+
+Vision Banner (底部企业愿景图)
+
+v1.jpg - Bottom vision background image (底部企业愿景全屏背景图)

@@ -1,29 +1,638 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=frontend/index.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vmate — Redirecting</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Manrope", "Avenir Next", "Helvetica Neue", sans-serif;
-      background: #f6f1ea;
-      color: #201a14;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-    }
-    a {
-      color: inherit;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vmate - The Complete Car Fragrance Collection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #f4f7f9; color: #333; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; height: auto; }
+
+        /* 防选中保护类 */
+        .protect-section {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* ==========================================
+           Navbar
+        =========================================== */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 50px; position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: transparent; color: #fff; transition: background-color 0.3s ease, padding 0.3s;
+        }
+        header:hover, header.scrolled {
+            background-color: #0f52ba; color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo img { height: 35px; width: auto; display: block; }
+        .header-right { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-item { position: relative; margin: 0 20px; padding: 10px 0; cursor: pointer; }
+        .nav-item-title { font-size: 15px; font-weight: 600; text-transform: capitalize; }
+        .dropdown {
+            position: absolute; top: 100%; left: -20px; min-width: 220px; background: #fff; color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0; visibility: hidden; transform: translateY(10px);
+            transition: all 0.3s ease; border-radius: 4px; overflow: hidden;
+        }
+        .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown a { display: block; padding: 15px 20px; font-size: 14px; font-weight: 500; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
+        .dropdown a:hover { background: #f9f9f9; color: #0f52ba; }
+        .nav-icons { display: flex; align-items: center; gap: 20px; }
+        .nav-icons svg { width: 22px; height: 22px; cursor: pointer; transition: transform 0.2s; }
+        .nav-icons svg:hover { transform: scale(1.1); }
+
+        /* ==========================================
+           Hero Carousel
+        =========================================== */
+        .carousel-container { position: relative; width: 100%; height: 100vh; min-height: 500px; overflow: hidden; background: #000; }
+        .carousel-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center;
+        }
+        .carousel-slide:not(.slide-1)::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
+        }
+        .carousel-slide.active { opacity: 1; z-index: 5; }
+
+        .slide-1 { background-image: url('desktop/b1.jpg'); }
+        .slide-2 { background-image: url('desktop/b2.jpg'); }
+        .slide-3 { background-image: url('desktop/b3.jpg'); }
+        .slide-4 { background-image: url('desktop/b4.jpg'); }
+
+        .hero-content { position: absolute; color: #fff; z-index: 10; width: 100%; max-width: 800px; padding: 0 20px; }
+        .hero-content h1 { font-size: 56px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px; line-height: 1.1; }
+        .hero-content h1.first-slide-title { font-size: 32px; letter-spacing: 0.5px; }
+        .hero-content p { font-size: 18px; font-weight: 500; margin-bottom: 30px; opacity: 0.9; }
+        
+        .btn-shop {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 35px; background: #0f52ba; color: #fff; font-size: 15px; font-weight: 700; border-radius: 30px; transition: all 0.3s ease;
+        }
+        .btn-shop:hover { background: #0b409c; transform: translateY(-2px); }
+        .btn-shop .arrow { margin-left: 10px; background: #fff; color: #0f52ba; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+
+        .b1-content { top: 25%; left: 10%; text-align: left; }
+        .b2-content { top: 30%; transform: translateY(-50%); left: 10%; text-align: left; }
+        .b3-content, .b4-content { bottom: 20%; right: 10%; text-align: right; }
+        .b3-content .btn-shop, .b4-content .btn-shop { margin-left: auto; }
+
+        .carousel-controls {
+            position: absolute; bottom: 50px; right: 50px; z-index: 20; display: flex; gap: 15px;
+        }
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .control-btn:hover { background: #fff; color: #000; border-color: #fff; }
+        .control-btn svg { width: 20px; height: 20px; stroke-width: 2.5; }
+
+        /* ==========================================
+           Brand Story Module
+        =========================================== */
+        .story-transition-title {
+            text-align: center;
+            padding: 80px 20px 40px; 
+            background-color: #fff;
+        }
+        .story-transition-title h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .story-transition-title p {
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .brand-story-wrapper {
+            background-color: #fff;
+            padding: 0 0 100px 0; 
+            width: 100%;
+        }
+
+        .story-hero-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            position: relative;
+            height: 600px;
+            background-image: url('desktop/bs.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .story-dark-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 45%;
+            background: rgba(0, 0, 0, 0.65); 
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: #fff;
+        }
+
+        .story-dark-overlay h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        .story-dark-overlay p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0; 
+        }
+
+        /* ==========================================
+           Product Grid (PC默认)
+        =========================================== */
+        .product-section { padding: 60px 0; position: relative; background: #f4f7f9;}
+        .section-inner { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 40px; font-size: 28px; font-weight: 700;}
+
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; } 
+        
+        /* 关键障眼法：在PC端隐藏第4个产品，保持1行3个 */
+        .product-grid .product-card:nth-child(4) { display: none; }
+
+        .product-card { background: #fff; padding: 25px; text-align: left; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);}
+        
+        .img-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 4px; margin-bottom: 20px; cursor: pointer; }
+        .img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease, opacity 0.5s ease; }
+        .img-main { opacity: 1; z-index: 2; }
+        .img-hover { opacity: 0; z-index: 1; transform: scale(1); }
+        .product-card:hover .img-main { opacity: 0; }
+        .product-card:hover .img-hover { opacity: 1; z-index: 3; transform: scale(1.08); }
+
+        .product-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .product-subtitle { font-size: 14px; font-weight: 500; color: #666; }
+
+        /* ==========================================
+           Layer 2 - A+ Content (Edge-to-Edge)
+        =========================================== */
+        .full-width-section { padding: 80px 0; background: #fff; position: relative; width: 100%; overflow: hidden; }
+        .full-width-section .section-title { margin-bottom: 50px; }
+        
+        .horizontal-scroll-container { position: relative; width: 100%; }
+        .horizontal-scroll-wrapper { 
+            display: flex; overflow-x: auto; gap: 40px; padding: 40px 5vw; 
+            scroll-behavior: smooth; scroll-snap-type: x mandatory; cursor: grab; user-select: none; 
+        }
+        /* 为了修复滚动触底Bug，增加一点尾部空间 */
+        .horizontal-scroll-wrapper::after { content: ''; flex: 0 0 1vw; display: block; }
+        .horizontal-scroll-wrapper.grabbing { cursor: grabbing; scroll-snap-type: none; }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+        
+        .horizontal-item { min-width: 80%; display: flex; align-items: stretch; background: #fff; border-radius: 12px; scroll-snap-align: center; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transform: scale(0.95); opacity: 0.6; transition: transform 0.5s ease, opacity 0.5s ease; }
+        .horizontal-item.is-active { transform: scale(1); opacity: 1; }
+        
+        .horizontal-item picture { width: 65%; flex-shrink: 0; display: block; }
+        .horizontal-item picture img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; display: block; }
+        
+        .horizontal-text { padding: 60px; width: 35%; display: flex; flex-direction: column; justify-content: center; }
+        .horizontal-text h3 { font-size: 30px; font-weight: 700; margin-bottom: 15px; }
+        .horizontal-text p { font-size: 16px; font-weight: 500; color: #555; line-height: 1.6; }
+
+        .aplus-control { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255, 255, 255, 0.95); border: none; color: #333; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: all 0.3s ease;}
+        .aplus-control:hover { background: #0f52ba; color: #fff; }
+        .aplus-control.prev { left: 2vw; }
+        .aplus-control.next { right: 2vw; }
+        .aplus-control svg { width: 26px; height: 26px; stroke-width: 2; }
+
+        /* ==========================================
+           Vision Banner
+        =========================================== */
+        .vision-banner { position: relative; width: 100%; height: 400px; background-image: url('desktop/v1.jpg'); background-size: cover; background-position: center; }
+        .vision-banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+        .vision-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #fff; z-index: 10; width: 90%; }
+        .vision-content h2 { font-size: 40px; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+        .vision-content p { font-size: 18px; font-weight: 500; opacity: 0.9; margin-bottom: 25px; }
+        .vision-content .contact-info { font-size: 15px; font-weight: 500; opacity: 0.9; transition: opacity 0.2s; }
+        .vision-content .contact-info:hover { opacity: 1; text-decoration: underline; }
+
+        footer { text-align: center; padding: 25px; background: #0a0a0a; color: #666; font-size: 13px; font-weight: 500;}
+
+        /* ==========================================
+           RESPONSIVE DESIGN (移动端专门调整)
+        =========================================== */
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            /* 关键障眼法：平板/手机端释放第4个产品，组成2x2方阵 */
+            .product-grid .product-card:nth-child(4) { display: block; }
+            
+            .story-hero-container { height: auto; display: flex; flex-direction: column; background-image: none;}
+            .story-hero-container::before { 
+                content: ''; width: 100%; height: 400px; 
+                background-image: url('desktop/bs.png'); 
+                background-size: cover; background-position: center;
+            }
+            .story-dark-overlay { position: relative; width: 100%; height: auto; background: #111; padding: 40px 30px; }
+            .horizontal-item { min-width: 90%; }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container { 
+                height: auto; 
+                aspect-ratio: 3 / 4; 
+                min-height: unset; 
+            }
+            .slide-1 { background-image: url('mobile/bm1.jpg'); }
+            .slide-2 { background-image: url('mobile/bm2.jpg'); }
+            .slide-3 { background-image: url('mobile/bm3.jpg'); }
+            .slide-4 { background-image: url('mobile/bm4.jpg'); }
+
+            header { padding: 15px 20px; }
+            .logo img { height: 28px; }
+            .nav-links { display: none; } 
+
+            .hero-content h1 { font-size: 24px; margin-bottom: 8px; }
+            .hero-content h1.first-slide-title { font-size: 22px; }
+            .hero-content p { font-size: 13px; white-space: normal; margin-bottom: 15px; }
+            
+            .btn-shop { padding: 10px 22px; font-size: 13px; }
+            .btn-shop .arrow { width: 16px; height: 16px; font-size: 10px; margin-left: 8px; }
+
+            .hero-content { width: 90%; padding: 0; }
+            
+            .b1-content {
+                top: 15%; bottom: auto; left: 50%; right: auto;
+                transform: translateX(-50%); text-align: center;
+            }
+            .b2-content, .b3-content, .b4-content {
+                bottom: 12%; top: auto; left: 50%; right: auto;
+                transform: translateX(-50%); text-align: center;
+            }
+            .b3-content .btn-shop, .b4-content .btn-shop { margin: 0 auto; }
+            
+            .carousel-controls { bottom: 15px; left: 50%; right: auto; transform: translateX(-50%); }
+            .control-btn { width: 35px; height: 35px; }
+
+            .story-transition-title { padding: 60px 20px 30px; }
+            .story-transition-title h2 { font-size: 26px; }
+            .brand-story-wrapper { padding: 0 0 60px 0; }
+
+            .story-hero-container {
+                width: 100%; height: auto; 
+                aspect-ratio: 9 / 16; 
+                background-image: url('mobile/bs.jpg'); 
+                background-size: cover; background-position: center top;
+            }
+
+            .story-dark-overlay {
+                position: absolute; bottom: 0; left: 0; top: auto; 
+                width: 100%; height: auto; 
+                background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px);
+                padding: 30px 20px; text-align: center; color: #fff;
+            }
+            .story-dark-overlay h3 { font-size: 24px; margin-bottom: 12px;}
+            .story-dark-overlay p { font-size: 13px; }
+
+            .product-section { padding: 40px 0; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .product-card { padding: 10px; border-radius: 6px; }
+            .product-title { font-size: 13px; line-height: 1.3; }
+            .product-subtitle { font-size: 12px; }
+
+            .full-width-section { padding: 40px 0; }
+            .horizontal-scroll-wrapper { gap: 20px; padding: 20px 5vw; }
+            .horizontal-item { flex-direction: column; min-width: 90%; }
+            .horizontal-item picture { width: 100%; }
+            .horizontal-item picture img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+            .horizontal-text { width: 100%; padding: 25px 20px; text-align: center; }
+            .horizontal-text h3 { font-size: 20px; margin-bottom: 10px;}
+            .horizontal-text p { font-size: 14px; }
+            
+            .vision-content h2 { font-size: 24px; margin-bottom: 8px;}
+            .vision-content p { font-size: 13px; margin-bottom: 15px;}
+            .vision-content .contact-info { font-size: 12px; }
+        }
+
+    </style>
 </head>
 <body>
-  <p>
-    Redirecting to the Vmate site. If it doesn't open, visit
-    <a href="frontend/index.html">frontend/index.html</a>.
-  </p>
+
+    <header id="main-header">
+        <a href="#" class="logo">
+            <img src="desktop/logo.png" alt="vmate logo">
+        </a>
+        <div class="header-right">
+            <div class="nav-links">
+                <div class="nav-item"><div class="nav-item-title">Shop All</div></div>
+                <div class="nav-item">
+                    <div class="nav-item-title">Collections</div>
+                    <div class="dropdown">
+                        <a href="#layer1">Astrum Collection</a>
+                        <a href="#layer3">Shining Star</a>
+                        <a href="#layer3">Aura Series</a>
+                    </div>
+                </div>
+                <div class="nav-item"><div class="nav-item-title">About Us</div></div>
+            </div>
+            
+            <div class="nav-icons">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+        </div>
+    </header>
+
+    <div class="carousel-container protect-section" oncontextmenu="return false;">
+        <div class="carousel-slide slide-1 active">
+            <div class="hero-content b1-content">
+                <h1 class="first-slide-title">The vmate Collection</h1>
+                <p>Elevate your ultimate driving experience.</p>
+                <a href="#layer1" class="btn-shop">Shop All <span class="arrow">➔</span></a>
+            </div>
+        </div>
+        <div class="carousel-slide slide-2">
+            <div class="hero-content b2-content">
+                <h1>Shining Star</h1>
+                <p>A seamless blend of metallic sleekness and premium fragrance.</p>
+                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+            </div>
+        </div>
+        <div class="carousel-slide slide-3">
+            <div class="hero-content b3-content">
+                <h1>Streamer Collection</h1>
+                <p>Immerse in the dynamic flow of light and fragrance.</p>
+                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+            </div>
+        </div>
+        <div class="carousel-slide slide-4">
+            <div class="hero-content b4-content">
+                <h1>Aura Series</h1>
+                <p>Find joy in every moment.</p>
+                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+            </div>
+        </div>
+        
+        <div class="carousel-controls">
+            <div class="control-btn" id="prevSlide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+            <div class="control-btn" id="nextSlide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+        </div>
+    </div>
+
+    <div class="story-transition-title">
+        <h2>Thoughtfully designed for every drive</h2>
+        <p>Car fragrance and accessories that bring together scent, design, and everyday comfort.</p>
+    </div>
+
+    <div class="brand-story-wrapper">
+        <div class="story-hero-container protect-section" oncontextmenu="return false;">
+            <div class="story-dark-overlay">
+                <h3>Why vmate</h3>
+                <p>We believe the space you drive in should feel as considered as the way it looks. That’s why vmate creates car fragrance and accessories that bring together scent, design, and everyday comfort — for a driving experience that feels more personal, more polished, and more complete.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-section" id="layer1">
+        <div class="section-inner">
+            <h2 class="section-title">Astrum Collection</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/w1.jpg" alt="White Tea Muse">
+                        <img class="img-hover" src="desktop/w2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Astrum Collection</div>
+                    <div class="product-subtitle">White Tea Muse</div>
+                </div>
+                <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/d1.jpg" alt="Dreamy Lavender">
+                        <img class="img-hover" src="desktop/d2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Astrum Collection</div>
+                    <div class="product-subtitle">Dreamy Lavender</div>
+                </div>
+                <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/o1.jpg" alt="Osmanthus Moon">
+                        <img class="img-hover" src="desktop/o2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Astrum Collection</div>
+                    <div class="product-subtitle">Osmanthus Moon</div>
+                </div>
+                <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/ds1.jpg" alt="Discovery Set">
+                        <img class="img-hover" src="desktop/ds2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Astrum Collection</div>
+                    <div class="product-subtitle">Discovery Set</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="full-width-section" id="layer2">
+        <h2 class="section-title">Designed for Excellence</h2>
+        <div class="horizontal-scroll-container">
+            <button class="aplus-control prev" id="aplusPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <div class="horizontal-scroll-wrapper" id="aplusWrapper">
+                <div class="horizontal-item is-active">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobile/am1.jpg">
+                        <img src="desktop/image_0.png" alt="A+ Content Integration">
+                    </picture>
+                    <div class="horizontal-text">
+                        <h3>Flawless Integration</h3>
+                        <p>Sleek contours and natural wood finishing blend perfectly with modern car interiors. Masterfully blended scents for your daily drive.</p>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobile/am2.jpg">
+                        <img src="desktop/a2.jpg" alt="A+ Content Aesthetics">
+                    </picture>
+                    <div class="horizontal-text">
+                        <h3>Crystal Aesthetics</h3>
+                        <p>Experience the mesmerizing interplay of light and premium colored essential oils, catching every ray of sunshine during your journey.</p>
+                    </div>
+                </div>
+                <div class="horizontal-item">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="mobile/am3.jpg">
+                        <img src="desktop/a1.jpg" alt="More Content">
+                    </picture>
+                    <div class="horizontal-text">
+                        <h3>Natural Elements</h3>
+                        <p>Authentic materials from nature crafted into premium car accessories.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="aplus-control next" id="aplusNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+    </div>
+
+    <div class="product-section" id="layer3">
+        <div class="section-inner">
+            <h2 class="section-title">Explore Best Sellers</h2>
+            <div class="product-grid">
+                 <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/s1.jpg" alt="Shining Star">
+                        <img class="img-hover" src="desktop/s2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Shining Star</div>
+                    <div class="product-subtitle">Metallic Edition</div>
+                </div>
+                 <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/st1.jpg" alt="Streamer">
+                        <img class="img-hover" src="desktop/st2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Streamer Collection</div>
+                    <div class="product-subtitle">Gradient Set</div>
+                </div>
+                 <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/j1.jpg" alt="Aura Refill">
+                        <img class="img-hover" src="desktop/j2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Aura Series</div>
+                    <div class="product-subtitle">Essential Oil Refill</div>
+                </div>
+                <div class="product-card">
+                    <div class="img-wrapper">
+                        <img class="img-main" src="desktop/ac1.jpg" alt="Aura Car Clip">
+                        <img class="img-hover" src="desktop/ac2.jpg" alt="Scene">
+                    </div>
+                    <div class="product-title">Aura Series</div>
+                    <div class="product-subtitle">Car Clip</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vision-banner protect-section" oncontextmenu="return false;">
+        <div class="vision-content">
+            <h2>Unlock a fresh, vibrant life.</h2>
+            <p>Breathe in the possibilities, breathe out the stress.</p>
+            <a href="mailto:vmatecn@gamil.com" class="contact-info">Contact us: vmatecn@gamil.com</a>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 vmate. All rights reserved.
+    </footer>
+
+    <script>
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { header.classList.add('scrolled'); } 
+            else { header.classList.remove('scrolled'); }
+        });
+
+        const slides = document.querySelectorAll('.carousel-slide');
+        let currentSlide = 0;
+        let autoPlayTimer;
+        let interactionTimer;
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function startAutoPlay() {
+            clearTimeout(autoPlayTimer);
+            let duration = (currentSlide === 0) ? 8000 : 5000; 
+            autoPlayTimer = setTimeout(() => { goToSlide(currentSlide + 1); startAutoPlay(); }, duration);
+        }
+
+        function handleInteraction() {
+            clearTimeout(autoPlayTimer);
+            clearTimeout(interactionTimer);
+            interactionTimer = setTimeout(() => { startAutoPlay(); }, 10000);
+        }
+
+        document.getElementById('prevSlide').addEventListener('click', () => { goToSlide(currentSlide - 1); handleInteraction(); });
+        document.getElementById('nextSlide').addEventListener('click', () => { goToSlide(currentSlide + 1); handleInteraction(); });
+        startAutoPlay();
+
+        // A+ Carousel
+        const aplusWrapper = document.getElementById('aplusWrapper');
+        const aplusItems = document.querySelectorAll('#aplusWrapper .horizontal-item');
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+
+        function updateAplusFocusEffect() {
+            // 触底检测，确保手机端/平板端滑到最后一张时必定触发特效
+            if (Math.ceil(aplusWrapper.scrollLeft + aplusWrapper.clientWidth) >= aplusWrapper.scrollWidth - 10) {
+                aplusItems.forEach(item => item.classList.remove('is-active'));
+                if (aplusItems.length > 0) aplusItems[aplusItems.length - 1].classList.add('is-active');
+                return;
+            }
+
+            const containerRect = aplusWrapper.getBoundingClientRect();
+            const containerCenter = containerRect.left + containerRect.width / 2;
+            let centerMostItem = null;
+            let minDistance = Infinity;
+
+            aplusItems.forEach(item => {
+                const itemRect = item.getBoundingClientRect();
+                const itemCenter = itemRect.left + itemRect.width / 2;
+                const distanceFromCenter = Math.abs(containerCenter - itemCenter);
+                
+                item.classList.remove('is-active');
+                if (distanceFromCenter < minDistance) { minDistance = distanceFromCenter; centerMostItem = item; }
+            });
+            if (centerMostItem) { centerMostItem.classList.add('is-active'); }
+        }
+
+        aplusWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true; aplusWrapper.classList.add('grabbing');
+            startX = e.pageX - aplusWrapper.offsetLeft; scrollLeft = aplusWrapper.scrollLeft;
+        });
+
+        const stopDragging = () => { isDragging = false; aplusWrapper.classList.remove('grabbing'); };
+        aplusWrapper.addEventListener('mouseleave', stopDragging);
+        aplusWrapper.addEventListener('mouseup', stopDragging);
+
+        aplusWrapper.addEventListener('mousemove', (e) => {
+            if (!isDragging) return; e.preventDefault();
+            const x = e.pageX - aplusWrapper.offsetLeft;
+            const walk = (x - startX) * 2;
+            aplusWrapper.scrollLeft = scrollLeft - walk;
+            updateAplusFocusEffect(); 
+        });
+
+        document.getElementById('aplusPrev').addEventListener('click', () => {
+            const itemWidth = aplusItems[0].offsetWidth + 40; 
+            aplusWrapper.scrollLeft -= itemWidth; setTimeout(updateAplusFocusEffect, 200); 
+        });
+        document.getElementById('aplusNext').addEventListener('click', () => {
+            const itemWidth = aplusItems[0].offsetWidth + 40; 
+            aplusWrapper.scrollLeft += itemWidth; setTimeout(updateAplusFocusEffect, 200); 
+        });
+
+        aplusWrapper.addEventListener('scroll', updateAplusFocusEffect);
+        updateAplusFocusEffect(); 
+    </script>
 </body>
 </html>
