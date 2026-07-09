@@ -60,16 +60,16 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center;
         }
-        .carousel-slide:not(.slide-1)::after {
+        .carousel-slide::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.38) 100%);
         }
         .carousel-slide.active { opacity: 1; z-index: 5; }
 
-        .slide-1 { background-image: url('desktop/b1.jpg'); }
-        .slide-2 { background-image: url('desktop/b2.jpg'); }
-        .slide-3 { background-image: url('desktop/b3.jpg'); }
-        .slide-4 { background-image: url('desktop/b4.jpg'); }
+        .slide-1 { background-image: url('assets/astrum/detail/detail-12.jpeg'); background-position: center; }
+        .slide-2 { background-image: url('assets/astrum/detail/detail-04.jpeg'); background-position: center; }
+        .slide-3 { background-image: url('assets/astrum/detail/detail-05.jpg'); background-position: center; }
+        .slide-4 { background-image: url('assets/astrum/detail/detail-03.jpg'); background-position: center; }
 
         .hero-content { position: absolute; color: #fff; z-index: 10; width: 100%; max-width: 800px; padding: 0 20px; }
         .hero-content h1 { font-size: 56px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px; line-height: 1.1; }
@@ -130,7 +130,7 @@
             margin: 0 auto;
             position: relative;
             height: 600px;
-            background-image: url('desktop/bs.png'); 
+            background-image: url('assets/astrum/detail/detail-04.jpeg'); 
             background-size: cover;
             background-position: center;
         }
@@ -167,7 +167,7 @@
         /* ==========================================
            Product Grid (PC默认)
         =========================================== */
-        .product-section { padding: 60px 0; position: relative; background: #f4f7f9;}
+        .product-section { padding: 60px 0; position: relative; background: #f4f7f9; scroll-margin-top: 78px;}
         .section-inner { max-width: 1440px; margin: 0 auto; padding: 0 20px; }
         .section-title { text-align: center; margin-bottom: 40px; font-size: 28px; font-weight: 700;}
 
@@ -176,7 +176,8 @@
         /* 关键障眼法：在PC端隐藏第4个产品，保持1行3个 */
         .product-grid .product-card:nth-child(4) { display: none; }
 
-        .product-card { background: #fff; padding: 25px; text-align: left; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);}
+        .product-card { display: block; color: inherit; background: #fff; padding: 25px; text-align: left; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease;}
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(15,82,186,0.10); }
         
         .img-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 4px; margin-bottom: 20px; cursor: pointer; }
         .img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease, opacity 0.5s ease; }
@@ -187,11 +188,12 @@
 
         .product-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
         .product-subtitle { font-size: 14px; font-weight: 500; color: #666; }
+        .product-link-label { display: inline-block; margin-top: 14px; color: #0f52ba; font-size: 13px; font-weight: 700; }
 
         /* ==========================================
            Layer 2 - A+ Content (Edge-to-Edge)
         =========================================== */
-        .full-width-section { padding: 80px 0; background: #fff; position: relative; width: 100%; overflow: hidden; }
+        .full-width-section { padding: 80px 0; background: #fff; position: relative; width: 100%; overflow: hidden; scroll-margin-top: 78px; }
         .full-width-section .section-title { margin-bottom: 50px; }
         
         .horizontal-scroll-container { position: relative; width: 100%; }
@@ -223,7 +225,7 @@
         /* ==========================================
            Vision Banner
         =========================================== */
-        .vision-banner { position: relative; width: 100%; height: 400px; background-image: url('desktop/v1.jpg'); background-size: cover; background-position: center; }
+        .vision-banner { position: relative; width: 100%; height: 400px; background-image: url('assets/astrum/detail/detail-08.jpeg'); background-size: cover; background-position: center; }
         .vision-banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
         .vision-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #fff; z-index: 10; width: 90%; }
         .vision-content h2 { font-size: 40px; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
@@ -245,7 +247,7 @@
             .story-hero-container { height: auto; display: flex; flex-direction: column; background-image: none;}
             .story-hero-container::before { 
                 content: ''; width: 100%; height: 400px; 
-                background-image: url('desktop/bs.png'); 
+                background-image: url('assets/astrum/detail/detail-04.jpeg'); 
                 background-size: cover; background-position: center;
             }
             .story-dark-overlay { position: relative; width: 100%; height: auto; background: #111; padding: 40px 30px; }
@@ -258,10 +260,10 @@
                 aspect-ratio: 3 / 4; 
                 min-height: unset; 
             }
-            .slide-1 { background-image: url('mobile/bm1.jpg'); }
-            .slide-2 { background-image: url('mobile/bm2.jpg'); }
-            .slide-3 { background-image: url('mobile/bm3.jpg'); }
-            .slide-4 { background-image: url('mobile/bm4.jpg'); }
+            .slide-1 { background-image: url('assets/astrum/main/main-01.jpg'); }
+            .slide-2 { background-image: url('assets/astrum/main/main-02.jpg'); }
+            .slide-3 { background-image: url('assets/astrum/main/main-03.jpg'); }
+            .slide-4 { background-image: url('assets/astrum/main/main-04.jpg'); }
 
             header { padding: 15px 20px; }
             .logo img { height: 28px; }
@@ -296,7 +298,7 @@
             .story-hero-container {
                 width: 100%; height: auto; 
                 aspect-ratio: 9 / 16; 
-                background-image: url('mobile/bs.jpg'); 
+                background-image: url('assets/astrum/main/main-07.jpg'); 
                 background-size: cover; background-position: center top;
             }
 
@@ -339,13 +341,14 @@
         </a>
         <div class="header-right">
             <div class="nav-links">
-                <div class="nav-item"><div class="nav-item-title">Shop All</div></div>
+                <div class="nav-item"><a class="nav-item-title" href="#layer1">Shop All</a></div>
                 <div class="nav-item">
                     <div class="nav-item-title">Collections</div>
                     <div class="dropdown">
-                        <a href="#layer1">Astrum Collection</a>
-                        <a href="#layer3">Shining Star</a>
-                        <a href="#layer3">Aura Series</a>
+                        <a href="astrum-detail.html">Astrum Collection</a>
+                        <a href="astrum-detail.html?variant=white-tea">White Tea Muse</a>
+                        <a href="astrum-detail.html?variant=lavender">Dreamy Lavender</a>
+                        <a href="astrum-detail.html?variant=osmanthus">Osmanthus Moon</a>
                     </div>
                 </div>
                 <div class="nav-item"><div class="nav-item-title">About Us</div></div>
@@ -361,30 +364,30 @@
     <div class="carousel-container protect-section" oncontextmenu="return false;">
         <div class="carousel-slide slide-1 active">
             <div class="hero-content b1-content">
-                <h1 class="first-slide-title">The vmate Collection</h1>
-                <p>Elevate your ultimate driving experience.</p>
-                <a href="#layer1" class="btn-shop">Shop All <span class="arrow">➔</span></a>
+                <h1 class="first-slide-title">The Astrum Collection</h1>
+                <p>Three distinctive scents. One refined diffuser.</p>
+                <a href="astrum-detail.html" class="btn-shop">Shop Astrum <span class="arrow">➔</span></a>
             </div>
         </div>
         <div class="carousel-slide slide-2">
             <div class="hero-content b2-content">
-                <h1>Shining Star</h1>
-                <p>A seamless blend of metallic sleekness and premium fragrance.</p>
-                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+                <h1>White Tea Muse</h1>
+                <p>An elegant fusion of white florals and dewy petals.</p>
+                <a href="astrum-detail.html?variant=white-tea" class="btn-shop">Learn More <span class="arrow">➔</span></a>
             </div>
         </div>
         <div class="carousel-slide slide-3">
             <div class="hero-content b3-content">
-                <h1>Streamer Collection</h1>
-                <p>Immerse in the dynamic flow of light and fragrance.</p>
-                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+                <h1>Dreamy Lavender</h1>
+                <p>A soothing floral escape for every journey.</p>
+                <a href="astrum-detail.html?variant=lavender" class="btn-shop">Learn More <span class="arrow">➔</span></a>
             </div>
         </div>
         <div class="carousel-slide slide-4">
             <div class="hero-content b4-content">
-                <h1>Aura Series</h1>
-                <p>Find joy in every moment.</p>
-                <a href="#" class="btn-shop">Learn More <span class="arrow">➔</span></a>
+                <h1>Osmanthus Moon</h1>
+                <p>Warm osmanthus layered with a soft amber finish.</p>
+                <a href="astrum-detail.html?variant=osmanthus" class="btn-shop">Learn More <span class="arrow">➔</span></a>
             </div>
         </div>
         
@@ -412,38 +415,42 @@
         <div class="section-inner">
             <h2 class="section-title">Astrum Collection</h2>
             <div class="product-grid">
-                <div class="product-card">
+                <a class="product-card" href="astrum-detail.html?variant=white-tea">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/w1.jpg" alt="White Tea Muse">
-                        <img class="img-hover" src="desktop/w2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-02.jpg" alt="White Tea Muse car diffuser">
+                        <img class="img-hover" src="assets/astrum/main/main-05.jpg" alt="White Tea Muse in a car">
                     </div>
                     <div class="product-title">Astrum Collection</div>
                     <div class="product-subtitle">White Tea Muse</div>
-                </div>
-                <div class="product-card">
+                    <span class="product-link-label">View details →</span>
+                </a>
+                <a class="product-card" href="astrum-detail.html?variant=lavender">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/d1.jpg" alt="Dreamy Lavender">
-                        <img class="img-hover" src="desktop/d2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-03.jpg" alt="Dreamy Lavender car diffuser">
+                        <img class="img-hover" src="assets/astrum/main/main-13.jpg" alt="Dreamy Lavender fragrance notes">
                     </div>
                     <div class="product-title">Astrum Collection</div>
                     <div class="product-subtitle">Dreamy Lavender</div>
-                </div>
-                <div class="product-card">
+                    <span class="product-link-label">View details →</span>
+                </a>
+                <a class="product-card" href="astrum-detail.html?variant=osmanthus">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/o1.jpg" alt="Osmanthus Moon">
-                        <img class="img-hover" src="desktop/o2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-04.jpg" alt="Osmanthus Moon car diffuser">
+                        <img class="img-hover" src="assets/astrum/main/main-12.jpg" alt="Osmanthus Moon fragrance notes">
                     </div>
                     <div class="product-title">Astrum Collection</div>
                     <div class="product-subtitle">Osmanthus Moon</div>
-                </div>
-                <div class="product-card">
+                    <span class="product-link-label">View details →</span>
+                </a>
+                <a class="product-card" href="astrum-detail.html?variant=discovery-set">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/ds1.jpg" alt="Discovery Set">
-                        <img class="img-hover" src="desktop/ds2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-01.jpg" alt="Astrum Discovery Set">
+                        <img class="img-hover" src="assets/astrum/main/main-10.jpg" alt="Astrum gift set">
                     </div>
                     <div class="product-title">Astrum Collection</div>
                     <div class="product-subtitle">Discovery Set</div>
-                </div>
+                    <span class="product-link-label">View details →</span>
+                </a>
             </div>
         </div>
     </div>
@@ -455,8 +462,8 @@
             <div class="horizontal-scroll-wrapper" id="aplusWrapper">
                 <div class="horizontal-item is-active">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="mobile/am1.jpg">
-                        <img src="desktop/image_0.png" alt="A+ Content Integration">
+                        <source media="(max-width: 768px)" srcset="assets/astrum/main/main-06.jpg">
+                        <img src="assets/astrum/detail/detail-03.jpg" alt="Astrum diffuser crafted for modern car interiors">
                     </picture>
                     <div class="horizontal-text">
                         <h3>Flawless Integration</h3>
@@ -465,22 +472,22 @@
                 </div>
                 <div class="horizontal-item">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="mobile/am2.jpg">
-                        <img src="desktop/a2.jpg" alt="A+ Content Aesthetics">
+                        <source media="(max-width: 768px)" srcset="assets/astrum/main/main-07.jpg">
+                        <img src="assets/astrum/detail/detail-04.jpeg" alt="Astrum natural essential oils">
                     </picture>
                     <div class="horizontal-text">
-                        <h3>Crystal Aesthetics</h3>
-                        <p>Experience the mesmerizing interplay of light and premium colored essential oils, catching every ray of sunshine during your journey.</p>
+                        <h3>Natural Essential Oils</h3>
+                        <p>Three distinctive plant-based fragrances bring a fresh, refined atmosphere to every journey.</p>
                     </div>
                 </div>
                 <div class="horizontal-item">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="mobile/am3.jpg">
-                        <img src="desktop/a1.jpg" alt="More Content">
+                        <source media="(max-width: 768px)" srcset="assets/astrum/main/main-08.jpg">
+                        <img src="assets/astrum/detail/detail-05.jpg" alt="Astrum long-lasting freshness">
                     </picture>
                     <div class="horizontal-text">
-                        <h3>Natural Elements</h3>
-                        <p>Authentic materials from nature crafted into premium car accessories.</p>
+                        <h3>Freshness That Lasts</h3>
+                        <p>A clean, natural aroma designed to remain present without overwhelming your space.</p>
                     </div>
                 </div>
             </div>
@@ -490,40 +497,44 @@
 
     <div class="product-section" id="layer3">
         <div class="section-inner">
-            <h2 class="section-title">Explore Best Sellers</h2>
+            <h2 class="section-title">Explore Astrum</h2>
             <div class="product-grid">
-                 <div class="product-card">
+                 <a class="product-card" href="astrum-detail.html">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/s1.jpg" alt="Shining Star">
-                        <img class="img-hover" src="desktop/s2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-06.jpg" alt="Astrum made for every drive">
+                        <img class="img-hover" src="assets/astrum/main/main-05.jpg" alt="Astrum diffuser in a car">
                     </div>
-                    <div class="product-title">Shining Star</div>
-                    <div class="product-subtitle">Metallic Edition</div>
-                </div>
-                 <div class="product-card">
+                    <div class="product-title">Made for Every Drive</div>
+                    <div class="product-subtitle">Compact, clean and composed</div>
+                    <span class="product-link-label">View details →</span>
+                </a>
+                 <a class="product-card" href="astrum-detail.html#product-details">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/st1.jpg" alt="Streamer">
-                        <img class="img-hover" src="desktop/st2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-07.jpg" alt="Astrum natural essential oils">
+                        <img class="img-hover" src="assets/astrum/main/main-11.jpg" alt="Astrum freshness for any space">
                     </div>
-                    <div class="product-title">Streamer Collection</div>
-                    <div class="product-subtitle">Gradient Set</div>
-                </div>
-                 <div class="product-card">
+                    <div class="product-title">Natural Ingredients</div>
+                    <div class="product-subtitle">Plant-based fragrance</div>
+                    <span class="product-link-label">View details →</span>
+                </a>
+                 <a class="product-card" href="astrum-detail.html#product-details">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/j1.jpg" alt="Aura Refill">
-                        <img class="img-hover" src="desktop/j2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-08.jpg" alt="Astrum adjustable installation">
+                        <img class="img-hover" src="assets/astrum/main/main-15.jpg" alt="Astrum installation guide">
                     </div>
-                    <div class="product-title">Aura Series</div>
-                    <div class="product-subtitle">Essential Oil Refill</div>
-                </div>
-                <div class="product-card">
+                    <div class="product-title">Adjustable Installation</div>
+                    <div class="product-subtitle">Clip on with ease</div>
+                    <span class="product-link-label">View details →</span>
+                </a>
+                <a class="product-card" href="astrum-detail.html?variant=discovery-set">
                     <div class="img-wrapper">
-                        <img class="img-main" src="desktop/ac1.jpg" alt="Aura Car Clip">
-                        <img class="img-hover" src="desktop/ac2.jpg" alt="Scene">
+                        <img class="img-main" src="assets/astrum/main/main-10.jpg" alt="Astrum gift set">
+                        <img class="img-hover" src="assets/astrum/main/main-17.png" alt="Astrum retail packaging">
                     </div>
-                    <div class="product-title">Aura Series</div>
-                    <div class="product-subtitle">Car Clip</div>
-                </div>
+                    <div class="product-title">Ready to Gift</div>
+                    <div class="product-subtitle">The complete Astrum set</div>
+                    <span class="product-link-label">View details →</span>
+                </a>
             </div>
         </div>
     </div>

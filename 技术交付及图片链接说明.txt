@@ -1,103 +1,39 @@
-💻 前端技术交付文档 (Frontend Technical Handoff Document)
-1. 核心架构 (Core Architecture)
+VMATE 前端技术交付及图片说明
 
-纯原生开发 (Vanilla HTML/CSS/JS)：没有使用任何第三方框架（如 Bootstrap, Tailwind, React, jQuery 等）。代码极其轻量（Lightweight），打包在一个独立文件内，确保极速加载（Fast First Contentful Paint）和最高的渲染性能。
+1. 页面结构
 
-字体引入 (Typography)：统一调用 Google Fonts 的 Montserrat 无衬线字体，保持现代极简风格。
+- index.html：首页。
+- astrum-detail.html：Astrum Collection 商品详情页。
+- 项目使用原生 HTML、CSS 和 JavaScript，无第三方前端框架。
+- 首页和详情页均支持桌面端、平板端与手机端响应式布局。
 
-2. 响应式布局策略 (Responsive Layout Strategy)
+2. 当前图片资源
 
-媒体查询 (Media Queries)：采用 Desktop-first（桌面端优先）策略，断点设置在 max-width: 1024px（平板）和 max-width: 768px（手机端）。
+- desktop/logo.png：品牌 Logo。此文件为唯一保留的原品牌基础素材。
+- assets/astrum/main/：17 张最新商品主图，命名为 main-01 至 main-17。
+- assets/astrum/detail/：15 张最新商品详情图，命名为 detail-01 至 detail-15。
 
-商品网格障眼法 (Product Grid Trick)：
+原 desktop 商品图片和 mobile 图片已停止使用并从项目中删除。
 
-使用 CSS Grid 布局。
+3. 首页图片使用位置
 
-PC端：HTML 中写有 4 个产品，但通过 :nth-child(4) { display: none; } 隐藏第 4 个，呈现完美的 3 列布局。
+- 首屏轮播：使用最新详情图；手机端自动切换为最新主图。
+- 品牌故事：使用最新详情图；手机端使用最新主图。
+- Astrum Collection 商品卡片：使用最新主图。
+- Designed for Excellence：桌面端使用最新详情图，手机端使用最新主图。
+- Explore Astrum 商品卡片：使用最新主图。
+- 底部愿景横幅：使用最新详情图。
 
-移动端：通过媒体查询释放第 4 个产品 (display: block)，自动形成 2x2 的严谨对称方阵。
+4. 详情页图片使用位置
 
-长宽比控制 (Aspect Ratio Control)：在手机端放弃了 100vh 的全屏高度，大量使用 aspect-ratio 属性（如首屏轮播图 3 / 4，品牌故事 9 / 16），确保针对不同机型，图片都能 100% 完整显示，绝不被裁切。
+- 顶部商品画廊：按 White Tea Muse、Dreamy Lavender、Osmanthus Moon 和 Discovery Set 分组，只显示当前产品对应的主图。
+- 安装、天然成分、使用场景和礼赠图片放在主图轮播下方的独立内容模块中。
+- 商品详情区：按当前香型显示对应的场景图和规格图，使用原图比例展示并启用延迟加载。
+- 首页商品卡片和导航均已连接至详情页及对应香型。
 
-3. 媒体与静态资源处理 (Asset & Art Direction)
+5. 维护约定
 
-画境切换 (Picture Tag)：在 A+ 模块使用了 <picture> 和 <source> 标签。在 PC 端加载 16:9 横图，在屏幕宽度 <768px 时自动请求并加载移动端专属的 1:1 方图（如 am1.jpg），避免图片拉伸，同时节省移动端带宽。
-
-悬停动效 (Hover Effects)：商品卡片使用双图绝对定位（Absolute Positioning）堆叠，通过 CSS 的 opacity 和 transform: scale() 实现丝滑的悬停主图切换与轻微放大效果。
-
-4. 核心 JS 交互逻辑 (JavaScript Interactions)
-
-首屏轮播 (Hero Carousel)：基于 CSS opacity 的交叉淡入淡出（Crossfade）。包含自动播放（Auto-play）、用户点击后暂停计时器（Pause on interaction）以及防误触重启机制。
-
-A+ 横向滚动 (Horizontal Scroll & Center Focus)：
-
-实现了原生鼠标拖拽滚动（Drag-to-scroll）功能。
-
-视口居中高亮 (Viewport Center Detection)：实时计算滚动容器与子元素的坐标，距离视口中心最近的卡片会被赋予 .is-active 类名进行放大高亮。
-
-触底修复 (Scroll Boundary Logic)：针对最后一张图无法绝对居中的通病，加入了右侧边界检测逻辑。当 scrollLeft + clientWidth >= scrollWidth 时，强制最后一张图片激活放大。
-
-5. 基础防盗机制 (Basic Content Protection)
-
-通过 CSS user-select: none 防止文本批量选中。
-
-通过 HTML oncontextmenu="return false;" 屏蔽了网页的鼠标右键菜单，增加普通用户盗图的摩擦成本（增加阻力）。。
-
-
-📂 desktop (电脑端图片及通用产品图)
-建议：该文件夹主要存放宽屏大图及 1:1 的商品通用方图。
-
-Brand Logo (品牌标志)
-
-logo.png - Top navigation bar transparent logo (顶部导航栏透明 Logo)
-
-Hero Carousel (首屏轮播图 - PC端)
-建议比例 16:9，推荐尺寸 2560x1440
-
-b1.jpg - Hero slide 1: The vmate Collection (轮播图 1：vmate 全家福)
-
-b2.jpg - Hero slide 2: Shining Star (轮播图 2：星耀系列)
-
-b3.jpg - Hero slide 3: Streamer Collection (轮播图 3：流光系列)
-
-b4.jpg - Hero slide 4: Aura Series (轮播图 4：悦系列)
-
-Brand Story (品牌故事)
-建议宽度 2560px
-
-bs.png - Full-width brand story background (Why vmate 品牌故事横屏背景图)
-
-Astrum Collection (星芒系列商品图)
-尺寸 1:1 方图
-
-w1.jpg / w2.jpg - White Tea Muse: Main / Hover image (白茶缪斯：主图 / 悬停图)
-
-d1.jpg / d2.jpg - Dreamy Lavender: Main / Hover image (梦幻薰衣草：主图 / 悬停图)
-
-o1.jpg / o2.jpg - Osmanthus Moon: Main / Hover image (桂花映月：主图 / 悬停图)
-
-ds1.jpg / ds2.jpg - Discovery Set: Main / Hover image (探索套装：主图 / 悬停图) 注：此产品仅在移动端展示
-
-A+ Content (A+ 模块展示图 - PC端)
-建议横图
-
-image_0.png - Flawless Integration (A+ 图 1：完美融合)
-
-a2.jpg - Crystal Aesthetics (A+ 图 2：水晶美学)
-
-a1.jpg - Natural Elements (A+ 图 3：自然元素)
-
-Explore Best Sellers (畅销系列商品图)
-尺寸 1:1 方图
-
-s1.jpg / s2.jpg - Shining Star Metallic Edition: Main / Hover image (星耀系列金属版：主图 / 悬停图)
-
-st1.jpg / st2.jpg - Streamer Collection Gradient Set: Main / Hover image (流光系列渐变套装：主图 / 悬停图)
-
-j1.jpg / j2.jpg - Aura Series Essential Oil Refill: Main / Hover image (悦系列补充装：主图 / 悬停图)
-
-ac1.jpg / ac2.jpg - Aura Series Car Clip: Main / Hover image (悦系列风口夹：主图 / 悬停图) 注：此产品仅在移动端展示
-
-Vision Banner (底部企业愿景图)
-
-v1.jpg - Bottom vision background image (底部企业愿景全屏背景图)
+- 新增或替换商品主图时，放入 assets/astrum/main/。
+- 新增或替换详情图时，放入 assets/astrum/detail/。
+- 为避免中文路径和服务器兼容问题，网站内使用英文文件名。
+- 不要恢复或重新引用已删除的 desktop/mobile 旧商品图片。

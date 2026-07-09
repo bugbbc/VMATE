@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the vmate Astrum Collection car diffuser in White Tea Muse, Dreamy Lavender and Osmanthus Moon.">
+    <title>Astrum Collection | vmate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #0f52ba;
+            --blue-dark: #0b409c;
+            --ink: #16181d;
+            --muted: #626875;
+            --line: #e7eaf0;
+            --surface: #f5f7fa;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { color: var(--ink); background: #fff; font-family: 'Montserrat', sans-serif; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; }
+        img { display: block; max-width: 100%; }
+        .site-header {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 76px; padding: 0 5vw; color: #fff; background: var(--blue);
+            box-shadow: 0 4px 18px rgba(0,0,0,.08);
+        }
+        .logo img { width: auto; height: 34px; }
+        .site-nav { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 600; }
+        .site-nav a { opacity: .9; transition: opacity .2s; }
+        .site-nav a:hover { opacity: 1; }
+        .header-cta { padding: 11px 20px; border: 1px solid rgba(255,255,255,.6); border-radius: 999px; }
+        .breadcrumb {
+            max-width: 1380px; margin: 0 auto; padding: 24px 32px 0;
+            color: var(--muted); font-size: 13px; font-weight: 500;
+        }
+        .breadcrumb a:hover { color: var(--blue); }
+        .product-layout {
+            display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(340px, .9fr);
+            gap: clamp(40px, 6vw, 90px); max-width: 1380px; margin: 0 auto;
+            padding: 28px 32px 90px;
+        }
+        .gallery { min-width: 0; }
+        .gallery-stage {
+            position: relative; overflow: hidden; aspect-ratio: 1 / 1;
+            background: var(--surface); border-radius: 18px;
+        }
+        .gallery-stage img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: opacity .2s ease;
+        }
+        .gallery-stage img.is-changing { opacity: .35; }
+        .gallery-control {
+            position: absolute; top: 50%; z-index: 2; transform: translateY(-50%);
+            display: grid; place-items: center; width: 46px; height: 46px;
+            border: 0; border-radius: 50%; color: var(--ink); background: rgba(255,255,255,.92);
+            box-shadow: 0 4px 18px rgba(0,0,0,.14); cursor: pointer; transition: transform .2s, background .2s;
+        }
+        .gallery-control:hover { transform: translateY(-50%) scale(1.06); background: #fff; }
+        .gallery-control.prev { left: 18px; }
+        .gallery-control.next { right: 18px; }
+        .gallery-control svg { width: 20px; height: 20px; }
+        .gallery-count {
+            position: absolute; right: 18px; bottom: 18px; padding: 7px 12px;
+            color: #fff; background: rgba(0,0,0,.56); border-radius: 999px;
+            font-size: 12px; font-weight: 700; backdrop-filter: blur(8px);
+        }
+        .thumbnail-strip {
+            display: flex; gap: 10px; margin-top: 14px; padding: 2px 2px 10px;
+            overflow-x: auto; scroll-behavior: smooth; scrollbar-width: thin;
+        }
+        .thumbnail {
+            flex: 0 0 78px; width: 78px; height: 78px; padding: 0;
+            overflow: hidden; border: 2px solid transparent; border-radius: 10px;
+            background: var(--surface); cursor: pointer; transition: border-color .2s, transform .2s;
+        }
+        .thumbnail:hover { transform: translateY(-2px); }
+        .thumbnail.active { border-color: var(--blue); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .product-info { align-self: start; position: sticky; top: 112px; padding-top: 18px; }
+        .eyebrow {
+            margin-bottom: 14px; color: var(--blue); font-size: 13px;
+            font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+        }
+        h1 { max-width: 620px; font-size: clamp(38px, 5vw, 64px); line-height: 1.02; letter-spacing: -.04em; }
+        .lead { margin-top: 24px; color: var(--muted); font-size: 17px; line-height: 1.75; }
+        .variant-title { margin: 34px 0 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+        .variant-options { display: flex; flex-wrap: wrap; gap: 10px; }
+        .variant {
+            padding: 12px 15px; color: var(--ink); background: #fff;
+            border: 1px solid var(--line); border-radius: 8px; cursor: pointer; transition: all .2s;
+        }
+        .variant:hover, .variant.active { color: var(--blue); border-color: var(--blue); background: #f4f8ff; }
+        .feature-list { display: grid; gap: 16px; margin-top: 36px; list-style: none; }
+        .feature-list li { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; }
+        .feature-icon {
+            display: grid; place-items: center; width: 36px; height: 36px;
+            color: var(--blue); background: #edf4ff; border-radius: 50%; font-size: 16px; font-weight: 800;
+        }
+        .feature-list strong { display: block; margin-bottom: 3px; font-size: 14px; }
+        .feature-list span { color: var(--muted); font-size: 13px; line-height: 1.5; }
+        .support-section { padding: 86px 32px; background: #fff; }
+        .support-heading { max-width: 760px; margin: 0 auto 38px; text-align: center; }
+        .support-heading h2 { font-size: clamp(30px, 4vw, 44px); letter-spacing: -.03em; scroll-margin-top: 110px; }
+        .support-heading p { margin-top: 13px; color: var(--muted); line-height: 1.7; }
+        .support-grid {
+            display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px; max-width: 1280px; margin: 0 auto;
+        }
+        .support-card { overflow: hidden; background: var(--surface); border-radius: 14px; }
+        .support-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+        .support-card-copy { padding: 20px; }
+        .support-card h3 { margin-bottom: 7px; font-size: 17px; }
+        .support-card p { color: var(--muted); font-size: 13px; line-height: 1.55; }
+        .detail-section { padding: 86px 20px 110px; background: var(--surface); }
+        .detail-heading { max-width: 970px; margin: 0 auto 42px; text-align: center; }
+        .detail-heading .eyebrow { margin-bottom: 12px; }
+        .detail-heading h2 { font-size: clamp(30px, 4vw, 46px); letter-spacing: -.03em; }
+        .detail-heading p { margin-top: 14px; color: var(--muted); line-height: 1.7; }
+        .detail-gallery {
+            display: grid; gap: 16px; max-width: 970px; margin: 0 auto;
+        }
+        .detail-gallery img {
+            width: 100%; height: auto; border-radius: 12px; background: #fff;
+            box-shadow: 0 8px 30px rgba(22,24,29,.06);
+        }
+        .back-home {
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 36px;
+            padding: 13px 24px; color: #fff; background: var(--blue); border-radius: 999px;
+            font-size: 14px; font-weight: 700; transition: background .2s, transform .2s;
+        }
+        .back-home:hover { background: var(--blue-dark); transform: translateY(-2px); }
+        footer { padding: 28px; color: #8b909a; background: #0a0a0a; text-align: center; font-size: 13px; }
+        @media (max-width: 900px) {
+            .site-header { height: 66px; padding: 0 20px; }
+            .logo img { height: 29px; }
+            .site-nav a:not(.header-cta) { display: none; }
+            .breadcrumb { padding: 20px 18px 0; }
+            .product-layout { grid-template-columns: 1fr; gap: 30px; padding: 20px 18px 64px; }
+            .product-info { position: static; padding-top: 0; }
+            .lead { font-size: 15px; }
+            .support-section { padding: 64px 18px; }
+            .support-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .detail-section { padding: 64px 14px 80px; }
+            .detail-gallery { gap: 10px; }
+            .detail-gallery img { border-radius: 8px; }
+        }
+        @media (max-width: 520px) {
+            .gallery-stage { border-radius: 12px; }
+            .gallery-control { width: 38px; height: 38px; }
+            .gallery-control.prev { left: 10px; }
+            .gallery-control.next { right: 10px; }
+            .gallery-count { right: 10px; bottom: 10px; }
+            .thumbnail { flex-basis: 64px; width: 64px; height: 64px; }
+            .support-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 38px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="index.html" class="logo" aria-label="vmate home">
+            <img src="desktop/logo.png" alt="vmate">
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html#layer1">Collections</a>
+            <a href="#product-details">Product details</a>
+            <a href="index.html" class="header-cta">Back to home</a>
+        </nav>
+    </header>
+
+    <div class="breadcrumb"><a href="index.html">Home</a> / <span id="breadcrumbName">Astrum Discovery Set</span></div>
+
+    <main>
+        <section class="product-layout" aria-labelledby="product-title">
+            <div class="gallery">
+                <div class="gallery-stage" id="galleryStage">
+                    <img id="mainImage" src="assets/astrum/main/main-01.jpg" alt="Astrum Collection Discovery Set" width="1501" height="1501">
+                    <button class="gallery-control prev" id="galleryPrev" type="button" aria-label="Previous image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="gallery-control next" id="galleryNext" type="button" aria-label="Next image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                    <span class="gallery-count" id="galleryCount">1 / 3</span>
+                </div>
+                <div class="thumbnail-strip" id="thumbnailStrip" aria-label="Product image thumbnails"></div>
+            </div>
+
+            <div class="product-info">
+                <p class="eyebrow">Astrum Collection</p>
+                <h1 id="product-title">Astrum Discovery Set</h1>
+                <p class="lead" id="product-lead">Meet all three signature Astrum fragrances in one refined, ready-to-gift collection.</p>
+
+                <p class="variant-title">Explore the collection</p>
+                <div class="variant-options" aria-label="Fragrance selection">
+                    <button class="variant" type="button" data-variant="white-tea">White Tea Muse</button>
+                    <button class="variant" type="button" data-variant="lavender">Dreamy Lavender</button>
+                    <button class="variant" type="button" data-variant="osmanthus">Osmanthus Moon</button>
+                    <button class="variant active" type="button" data-variant="discovery-set">Discovery Set</button>
+                </div>
+
+                <ul class="feature-list">
+                    <li>
+                        <span class="feature-icon">01</span>
+                        <div><strong>Long-lasting freshness</strong><span>One bottle continuously emits fragrance for 4–6 months.</span></div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">02</span>
+                        <div><strong>Plant-based essential oils</strong><span>Pet-friendly, cruelty-free fragrance created for everyday spaces.</span></div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">03</span>
+                        <div><strong>Adjustable installation</strong><span>Clip on securely and set the lanyard to the height that suits your car.</span></div>
+                    </li>
+                </ul>
+                <a class="back-home" href="#product-details">Explore product details ↓</a>
+            </div>
+        </section>
+
+        <section class="support-section" aria-labelledby="support-title">
+            <div class="support-heading">
+                <p class="eyebrow">Everyday details</p>
+                <h2 id="support-title">Made for everyday use</h2>
+                <p>Explore the natural ingredients, simple installation and thoughtful details behind every Astrum diffuser.</p>
+            </div>
+            <div class="support-grid" id="supportGrid"></div>
+        </section>
+
+        <section class="detail-section" id="product-details" aria-labelledby="details-title">
+            <div class="detail-heading">
+                <p class="eyebrow">Product details</p>
+                <h2 id="details-title">Designed for every drive</h2>
+                <p>Explore the full Astrum story, from scent notes and materials to installation and product specifications.</p>
+            </div>
+            <div class="detail-gallery" id="detailGallery"></div>
+        </section>
+    </main>
+
+    <footer>© 2026 vmate. All rights reserved.</footer>
+
+    <script>
+        const products = {
+            'white-tea': {
+                name: 'White Tea Muse',
+                lead: 'An elegant blend of oceanic tea, dewy white florals and a clean woody finish.',
+                gallery: [
+                    { src: 'assets/astrum/main/main-02.jpg', alt: 'White Tea Muse blue car diffuser' },
+                    { src: 'assets/astrum/main/main-06.jpg', alt: 'White Tea Muse in a modern car interior' },
+                    { src: 'assets/astrum/main/main-11.jpg', alt: 'White Tea Muse freshness for any space' },
+                    { src: 'assets/astrum/main/main-14.jpg', alt: 'White Tea Muse fragrance notes' }
+                ],
+                details: [
+                    { src: 'assets/astrum/detail/detail-01.jpg', alt: 'White Tea Muse lasting freshness' },
+                    { src: 'assets/astrum/detail/detail-04.jpeg', alt: 'White Tea Muse freshness in a car' },
+                    { src: 'assets/astrum/detail/detail-06.jpg', alt: 'Astrum diffuser installation instructions' },
+                    { src: 'assets/astrum/detail/detail-08.jpeg', alt: 'Astrum natural essential oils' },
+                    { src: 'assets/astrum/detail/detail-13.jpg', alt: 'White Tea Muse specifications' }
+                ]
+            },
+            'lavender': {
+                name: 'Dreamy Lavender',
+                lead: 'A dreamy escape into wild lavender, midnight neroli and a soft creamy base.',
+                gallery: [
+                    { src: 'assets/astrum/main/main-03.jpg', alt: 'Dreamy Lavender purple car diffuser' },
+                    { src: 'assets/astrum/main/main-05.jpg', alt: 'Dreamy Lavender hanging in a car' },
+                    { src: 'assets/astrum/main/main-09.jpg', alt: 'Compact Dreamy Lavender fragrance bottle' },
+                    { src: 'assets/astrum/main/main-13.jpg', alt: 'Dreamy Lavender fragrance notes' }
+                ],
+                details: [
+                    { src: 'assets/astrum/detail/detail-05.jpg', alt: 'Astrum fragrances made with nature in mind' },
+                    { src: 'assets/astrum/detail/detail-06.jpg', alt: 'Astrum diffuser installation instructions' },
+                    { src: 'assets/astrum/detail/detail-07.jpg', alt: 'Astrum fragrance collection notes' },
+                    { src: 'assets/astrum/detail/detail-08.jpeg', alt: 'Astrum natural essential oils' },
+                    { src: 'assets/astrum/detail/detail-14.jpg', alt: 'Dreamy Lavender specifications' }
+                ]
+            },
+            'osmanthus': {
+                name: 'Osmanthus Moon',
+                lead: 'Warm osmanthus layered with soothing tea, sandalwood and an amber glow.',
+                gallery: [
+                    { src: 'assets/astrum/main/main-04.jpg', alt: 'Osmanthus Moon orange car diffuser' },
+                    { src: 'assets/astrum/main/main-12.jpg', alt: 'Osmanthus Moon fragrance notes' }
+                ],
+                details: [
+                    { src: 'assets/astrum/detail/detail-03.jpg', alt: 'Masterfully crafted Osmanthus Moon diffuser' },
+                    { src: 'assets/astrum/detail/detail-05.jpg', alt: 'Astrum fragrances made with nature in mind' },
+                    { src: 'assets/astrum/detail/detail-06.jpg', alt: 'Astrum diffuser installation instructions' },
+                    { src: 'assets/astrum/detail/detail-08.jpeg', alt: 'Astrum natural essential oils' },
+                    { src: 'assets/astrum/detail/detail-12.jpeg', alt: 'Osmanthus Moon in a warm car interior' },
+                    { src: 'assets/astrum/detail/detail-15.jpg', alt: 'Osmanthus Moon specifications' }
+                ]
+            },
+            'discovery-set': {
+                name: 'Astrum Discovery Set',
+                lead: 'Meet all three signature Astrum fragrances in one refined, ready-to-gift collection.',
+                gallery: [
+                    { src: 'assets/astrum/main/main-01.jpg', alt: 'Astrum Collection three-fragrance Discovery Set' },
+                    { src: 'assets/astrum/main/main-10.jpg', alt: 'Astrum ready-to-gift collection' },
+                    { src: 'assets/astrum/main/main-17.png', alt: 'Astrum Collection retail packaging' }
+                ],
+                details: [
+                    { src: 'assets/astrum/detail/detail-05.jpg', alt: 'Astrum fragrances made with nature in mind' },
+                    { src: 'assets/astrum/detail/detail-06.jpg', alt: 'Astrum diffuser installation instructions' },
+                    { src: 'assets/astrum/detail/detail-07.jpg', alt: 'White Tea Muse, Dreamy Lavender and Osmanthus Moon' },
+                    { src: 'assets/astrum/detail/detail-08.jpeg', alt: 'Astrum natural essential oils' },
+                    { src: 'assets/astrum/detail/detail-13.jpg', alt: 'White Tea Muse specifications' },
+                    { src: 'assets/astrum/detail/detail-14.jpg', alt: 'Dreamy Lavender specifications' },
+                    { src: 'assets/astrum/detail/detail-15.jpg', alt: 'Osmanthus Moon specifications' }
+                ]
+            }
+        };
+
+        const supportCards = [
+            {
+                src: 'assets/astrum/main/main-07.jpg',
+                title: 'Plant-based fragrance',
+                text: 'A closer look at the natural ingredients and the complete three-scent family.'
+            },
+            {
+                src: 'assets/astrum/main/main-08.jpg',
+                title: 'Clip on with ease',
+                text: 'An adjustable lanyard makes placement simple in the car or around the home.'
+            },
+            {
+                src: 'assets/astrum/main/main-15.jpg',
+                title: 'Simple setup',
+                text: 'Follow four clear steps to prepare the diffuser and adjust it to the right height.'
+            },
+            {
+                src: 'assets/astrum/main/main-16.jpg',
+                title: 'Made to gift',
+                text: 'A compact scented surprise designed for thoughtful everyday gifting.'
+            }
+        ];
+
+        const mainImage = document.getElementById('mainImage');
+        const galleryCount = document.getElementById('galleryCount');
+        const thumbnailStrip = document.getElementById('thumbnailStrip');
+        const detailGallery = document.getElementById('detailGallery');
+        const supportGrid = document.getElementById('supportGrid');
+        const variants = [...document.querySelectorAll('.variant')];
+        let activeProductKey = 'discovery-set';
+        let activeImages = [];
+        let currentIndex = 0;
+
+        function renderSupportCards() {
+            supportGrid.innerHTML = supportCards.map(card => `
+                <article class="support-card">
+                    <img src="${card.src}" alt="${card.title}" loading="lazy" decoding="async">
+                    <div class="support-card-copy">
+                        <h3>${card.title}</h3>
+                        <p>${card.text}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderThumbnails() {
+            thumbnailStrip.innerHTML = activeImages.map((image, index) => `
+                <button class="thumbnail${index === 0 ? ' active' : ''}" type="button" data-index="${index}" aria-label="Show ${image.alt}">
+                    <img src="${image.src}" alt="">
+                </button>
+            `).join('');
+            [...thumbnailStrip.querySelectorAll('.thumbnail')].forEach(thumbnail => {
+                thumbnail.addEventListener('click', () => showImage(Number(thumbnail.dataset.index)));
+            });
+        }
+
+        function renderDetails(product) {
+            detailGallery.innerHTML = product.details.map((image, index) => `
+                <img src="${image.src}" alt="${image.alt}"${index === 0 ? '' : ' loading="lazy" decoding="async"'}>
+            `).join('');
+        }
+
+        function showImage(index) {
+            currentIndex = (index + activeImages.length) % activeImages.length;
+            const selected = activeImages[currentIndex];
+            mainImage.classList.add('is-changing');
+            const preload = new Image();
+            preload.onload = () => {
+                mainImage.src = selected.src;
+                mainImage.alt = selected.alt;
+                mainImage.classList.remove('is-changing');
+            };
+            preload.src = selected.src;
+
+            const thumbnails = [...thumbnailStrip.querySelectorAll('.thumbnail')];
+            thumbnails.forEach((thumbnail, thumbnailIndex) => {
+                thumbnail.classList.toggle('active', thumbnailIndex === currentIndex);
+                thumbnail.setAttribute('aria-current', thumbnailIndex === currentIndex ? 'true' : 'false');
+            });
+            galleryCount.textContent = `${currentIndex + 1} / ${activeImages.length}`;
+            const selectedThumbnail = thumbnails[currentIndex];
+            const targetLeft = selectedThumbnail.offsetLeft - (thumbnailStrip.clientWidth - selectedThumbnail.offsetWidth) / 2;
+            thumbnailStrip.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        }
+
+        function loadProduct(productKey, updateUrl = false) {
+            activeProductKey = products[productKey] ? productKey : 'discovery-set';
+            const product = products[activeProductKey];
+            activeImages = product.gallery;
+            currentIndex = 0;
+
+            document.getElementById('product-title').textContent = product.name;
+            document.getElementById('product-lead').textContent = product.lead;
+            document.getElementById('breadcrumbName').textContent = product.name;
+            document.getElementById('details-title').textContent = `${product.name} details`;
+            document.title = `${product.name} | vmate`;
+            variants.forEach(variant => variant.classList.toggle('active', variant.dataset.variant === activeProductKey));
+
+            renderThumbnails();
+            renderDetails(product);
+            showImage(0);
+
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('variant', activeProductKey);
+                history.replaceState({}, '', url);
+            }
+        }
+
+        variants.forEach(variant => {
+            variant.addEventListener('click', () => loadProduct(variant.dataset.variant, true));
+        });
+        document.getElementById('galleryPrev').addEventListener('click', () => showImage(currentIndex - 1));
+        document.getElementById('galleryNext').addEventListener('click', () => showImage(currentIndex + 1));
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'ArrowLeft') showImage(currentIndex - 1);
+            if (event.key === 'ArrowRight') showImage(currentIndex + 1);
+        });
+
+        let touchStartX = 0;
+        const stage = document.getElementById('galleryStage');
+        stage.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+        stage.addEventListener('touchend', event => {
+            const delta = event.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(delta) > 45) showImage(currentIndex + (delta < 0 ? 1 : -1));
+        }, { passive: true });
+
+        renderSupportCards();
+        const requestedVariant = new URLSearchParams(window.location.search).get('variant');
+        loadProduct(requestedVariant || 'discovery-set');
+    </script>
+</body>
+</html>
