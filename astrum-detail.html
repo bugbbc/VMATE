@@ -103,6 +103,17 @@
         }
         .feature-list strong { display: block; margin-bottom: 3px; font-size: 14px; }
         .feature-list span { color: var(--muted); font-size: 13px; line-height: 1.5; }
+        .purchase-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+        .buy-amazon,
+        .back-home {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            min-height: 46px; padding: 13px 24px; border-radius: 999px;
+            font-size: 14px; font-weight: 700; transition: background .2s, color .2s, border-color .2s, transform .2s;
+        }
+        .buy-amazon { color: #fff; background: var(--blue); }
+        .buy-amazon:hover { background: var(--blue-dark); transform: translateY(-2px); }
+        .back-home { color: var(--blue); background: #fff; border: 1px solid var(--line); }
+        .back-home:hover { color: #fff; background: var(--blue); border-color: var(--blue); transform: translateY(-2px); }
         .support-section { padding: 86px 32px; background: #fff; }
         .support-heading { max-width: 760px; margin: 0 auto 38px; text-align: center; }
         .support-heading h2 { font-size: clamp(30px, 4vw, 44px); letter-spacing: -.03em; scroll-margin-top: 110px; }
@@ -128,12 +139,6 @@
             width: 100%; height: auto; border-radius: 12px; background: #fff;
             box-shadow: 0 8px 30px rgba(22,24,29,.06);
         }
-        .back-home {
-            display: inline-flex; align-items: center; gap: 10px; margin-top: 36px;
-            padding: 13px 24px; color: #fff; background: var(--blue); border-radius: 999px;
-            font-size: 14px; font-weight: 700; transition: background .2s, transform .2s;
-        }
-        .back-home:hover { background: var(--blue-dark); transform: translateY(-2px); }
         footer { padding: 28px; color: #8b909a; background: #0a0a0a; text-align: center; font-size: 13px; }
         @media (max-width: 900px) {
             .site-header { height: 66px; padding: 0 20px; }
@@ -222,7 +227,10 @@
                         <div><strong>Adjustable installation</strong><span>Clip on securely and set the lanyard to the height that suits your car.</span></div>
                     </li>
                 </ul>
-                <a class="back-home" href="#product-details">Explore product details ↓</a>
+                <div class="purchase-actions">
+                    <a class="buy-amazon" id="amazonLink" href="https://www.amazon.com.au/dp/B0GZVDCY53" target="_blank" rel="noopener">Buy on Amazon</a>
+                    <a class="back-home" href="#product-details">Explore product details ↓</a>
+                </div>
             </div>
         </section>
 
@@ -252,6 +260,7 @@
             'white-tea': {
                 name: 'White Tea Muse',
                 lead: 'An elegant blend of oceanic tea, dewy white florals and a clean woody finish.',
+                amazonUrl: 'https://www.amazon.com.au/dp/B0GZVJQXCX',
                 gallery: [
                     { src: 'assets/astrum/main/main-02.jpg', alt: 'White Tea Muse blue car diffuser' },
                     { src: 'assets/astrum/main/main-06.jpg', alt: 'White Tea Muse in a modern car interior' },
@@ -269,6 +278,7 @@
             'lavender': {
                 name: 'Dreamy Lavender',
                 lead: 'A dreamy escape into wild lavender, midnight neroli and a soft creamy base.',
+                amazonUrl: 'https://www.amazon.com.au/dp/B0GZV98D1S',
                 gallery: [
                     { src: 'assets/astrum/main/main-03.jpg', alt: 'Dreamy Lavender purple car diffuser' },
                     { src: 'assets/astrum/main/main-05.jpg', alt: 'Dreamy Lavender hanging in a car' },
@@ -286,6 +296,7 @@
             'osmanthus': {
                 name: 'Osmanthus Moon',
                 lead: 'Warm osmanthus layered with soothing tea, sandalwood and an amber glow.',
+                amazonUrl: 'https://www.amazon.com.au/dp/B0GZV7H2KR',
                 gallery: [
                     { src: 'assets/astrum/main/main-04.jpg', alt: 'Osmanthus Moon orange car diffuser' },
                     { src: 'assets/astrum/main/main-12.jpg', alt: 'Osmanthus Moon fragrance notes' }
@@ -302,6 +313,7 @@
             'discovery-set': {
                 name: 'Astrum Discovery Set',
                 lead: 'Meet all three signature Astrum fragrances in one refined, ready-to-gift collection.',
+                amazonUrl: 'https://www.amazon.com.au/dp/B0GZVDCY53',
                 gallery: [
                     { src: 'assets/astrum/main/main-01.jpg', alt: 'Astrum Collection three-fragrance Discovery Set' },
                     { src: 'assets/astrum/main/main-10.jpg', alt: 'Astrum ready-to-gift collection' },
@@ -347,6 +359,7 @@
         const thumbnailStrip = document.getElementById('thumbnailStrip');
         const detailGallery = document.getElementById('detailGallery');
         const supportGrid = document.getElementById('supportGrid');
+        const amazonLink = document.getElementById('amazonLink');
         const variants = [...document.querySelectorAll('.variant')];
         let activeProductKey = 'discovery-set';
         let activeImages = [];
@@ -415,6 +428,8 @@
             document.getElementById('breadcrumbName').textContent = product.name;
             document.getElementById('details-title').textContent = `${product.name} details`;
             document.title = `${product.name} | vmate`;
+            amazonLink.href = product.amazonUrl;
+            amazonLink.setAttribute('aria-label', `Buy ${product.name} on Amazon`);
             variants.forEach(variant => variant.classList.toggle('active', variant.dataset.variant === activeProductKey));
 
             renderThumbnails();
