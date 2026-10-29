@@ -1,0 +1,23 @@
+{
+  "name": "vmate-community",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && wrangler d1 migrations apply DB --local --config wrangler.worker.jsonc && wrangler dev --config wrangler.worker.jsonc --ip 127.0.0.1",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node tests/browser.mjs",
+    "deploy": "npm run build && wrangler d1 migrations apply DB --remote --config wrangler.worker.jsonc && wrangler deploy --config wrangler.worker.jsonc",
+    "deploy:pages": "npm run build && wrangler d1 migrations apply DB --remote --config wrangler.pages.jsonc && wrangler pages deploy dist --config wrangler.pages.jsonc",
+    "test:dom": "node tests/dom.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0",
+    "@playwright/test": "^1.56.0",
+    "miniflare": "5.20261019.2-beta",
+    "jsdom": "26.1.0"
+  }
+}

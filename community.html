@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A little inspiration for every drive. Share your vmate fragrance experience, car setup, photos and questions with the community.">
+  <title>The vmate Community — Every drive has a story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/community/community.css">
+  <script src="assets/community/community.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conversations">Skip to conversations</a>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/><path d="M8 10h8m-8 4h5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1 3 4 3 4-3 4-3M8 9h.01M16 9h.01"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4m-5-2 2-2a5 5 0 0 1 7 7l-2 2m-1 3-2 2a5 5 0 0 1-7-7l2-2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4m0 3h.01"/></symbol>
+  </svg>
+  <header class="site-header">
+    <a class="logo" href="index.html" aria-label="vmate home"><img src="desktop/logo.png" alt="vmate" width="106" height="34"></a>
+    <nav aria-label="Main navigation"><a href="index.html">Home</a><a href="astrum-detail.html">The collection</a><a href="community.html" aria-current="page">Community<span class="nav-dot"></span></a></nav>
+    <div class="account"><span id="account-name" hidden></span><button id="auth-open" class="header-button" type="button">Join the community <span aria-hidden="true">↗</span></button><button id="logout" class="header-button" type="button" hidden>Sign out</button></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> THE VMATE COMMUNITY</p>
+        <h1 id="hero-title">Every drive<br>has a <em>story.</em></h1>
+        <p class="hero-description">Your favourite scent. Your little corner of the world.<br class="desktop-break"> Share the moments that make the journey yours.</p>
+        <button class="button primary" data-compose type="button">Share your story <svg><use href="#i-arrow"/></svg></button>
+        <a class="text-link" href="#conversations">Find your inspiration <span aria-hidden="true">↓</span></a>
+        <div class="hero-note"><span class="tiny-icon">✳</span> A space for real experiences &amp; everyday inspiration.</div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/astrum/detail/detail-12.jpeg" alt="An amber Astrum diffuser catching the light in a car interior" fetchpriority="high">
+        <span class="image-label">LITTLE DETAILS. BETTER JOURNEYS.</span>
+        <div class="photo-caption"><span class="caption-mark">v.</span><div>Made for your everyday.<small>THE ASTRUM COLLECTION</small></div><a href="astrum-detail.html" aria-label="Explore the Astrum collection">↗</a></div>
+      </div>
+    </section>
+    <div class="community-bar"><p>A shared love for the little things.</p><div class="community-stats" aria-label="Community statistics"><span><strong id="stat-posts">—</strong> stories</span><span><strong id="stat-photos">—</strong> photos</span><span><strong id="stat-members">—</strong> members</span></div></div>
+    <section class="community-layout" id="conversations" aria-labelledby="feed-heading">
+      <aside class="sidebar">
+        <p class="eyebrow">FIND YOUR PEOPLE</p>
+        <h2>Pull up a seat.</h2>
+        <nav class="topic-nav" aria-label="Conversation topics">
+          <button class="topic active" data-topic="all" type="button" aria-pressed="true"><svg><use href="#i-chat"/></svg>All conversations<span>↗</span></button>
+          <button class="topic" data-topic="stories" type="button" aria-pressed="false"><svg><use href="#i-heart"/></svg>Scent stories</button>
+          <button class="topic" data-topic="photos" type="button" aria-pressed="false"><svg><use href="#i-image"/></svg>Photos &amp; setups</button>
+          <button class="topic" data-topic="questions" type="button" aria-pressed="false"><svg><use href="#i-help"/></svg>Tips &amp; questions</button>
+        </nav>
+        <div class="scent-filter"><label for="product-filter">YOUR FRAGRANCE</label><select id="product-filter"><option value="all">All fragrances</option value="white-tea">White Tea Muse</option><option value="lavender">Dreamy Lavender</option><option value="osmanthus">Osmanthus Moon</option><option value="discovery-set">Discovery Set</option><option value="general">Just chatting</option></select></div>
+        <div class="guidelines"><span class="guidelines-icon">✳</span><h3>A little kindness<br>goes a long way.</h3><p>Be yourself. Share honestly. Make room for different experiences.</p><button class="text-link" id="guidelines-open" type="button">Our community guidelines ↗</button></div>
+        <a class="collection-link" href="astrum-detail.html"><img src="assets/astrum/main/main-01.jpg" alt="Explore all three Astrum fragrances" loading="lazy"><span>Find your signature scent<small>Explore Astrum <span aria-hidden="true">↗</span></small></span></a>
+        <button id="moderation-open" class="button secondary" type="button" hidden>Review reports</button>
+      </aside>
+      <div class="feed-column">
+        <div class="composer-prompt"><span class="prompt-icon"><svg><use href="#i-smile"/></svg></span><div><h2>How’s your daily drive feeling?</h2><p>A photo, a favourite scent, a little discovery. We’d love to hear it.</p></div><button class="button primary" data-compose type="button"><svg><use href="#i-plus"/></svg><span>Start a conversation</span></button></div>
+        <div class="feed-heading-row"><h2 id="feed-heading">All conversations <span id="result-count"></span></h2><label class="sort-label"><span class="sr-only">Sort conversations</span><select id="sort"><option value="newest">Latest first</option><option value="popular">Most loved</option></select></label></div>
+        <form class="search" id="search-form" role="search"><svg><use href="#i-search"/></svg><label class="sr-only" for="search-input">Search conversations</label><input type="search" id="search-input" maxlength="100" placeholder="Find a scent, a setup, a conversation…"><button type="submit">Search</button></form>
+        <div id="feed-status" role="status" class="feed-status">Finding your next inspiration…</div>
+        <div id="feed" class="feed" aria-live="polite" aria-busy="true"></div>
+        <button id="load-more" class="button secondary load-more" type="button" hidden>More conversations <span aria-hidden="true">↓</span></button>
+        <p class="feed-end" id="feed-end" hidden>You’re all caught up. A new story starts with you. ✳</p>
+      </div>
+    </section>
+  </main>
+  <footer><a href="index.html" class="footer-brand">vmate<span>®</span></a><p>A little more joy in every journey.</p><a href="mailto:15795752149@163.com">Get in touch ↗</a><small>© 2026 vmate. All rights reserved.</small></footer>
+  <noscript><p class="notice">Enable JavaScript to read and share community stories.</p></noscript>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <dialog id="auth-dialog" class="modal auth-modal" aria-labelledby="auth-title">
+    <button class="icon-button modal-close" data-close type="button" aria-label="Close sign in"><svg><use href="#i-close"/></svg></button>
+    <p class="eyebrow">A LITTLE MORE CONNECTION</p><h2 id="auth-title">Welcome to the community.</h2><p class="modal-intro">Make yourself at home. Your next conversation starts here.</p>
+    <div class="auth-tabs"><button type="button" id="register-tab" aria-pressed="true" class="active">Create account</button><button type="button" id="login-tab" aria-pressed="false">Sign in</button></div>
+    <form id="auth-form"><label id="name-field">Display name<input name="name" autocomplete="nickname" minlength="2" maxlength="40" required placeholder="What should we call you?"></label><label>Username<input name="username" autocomplete="username" minlength="3" maxlength="24" pattern="[a-zA-Z0-9_]+" required placeholder="Letters, numbers and underscores"></label><label>Password<input name="password" type="password" autocomplete="new-password" minlength="10" maxlength="128" required placeholder="At least 10 characters"></label><p class="form-error" id="auth-error" role="alert" hidden></p><button class="button primary full-width" id="auth-submit" type="submit">Create account <span aria-hidden="true">↗</span></button><p class="form-note">Your display name is public. Keep your username and password somewhere safe.</p></form>
+  </dialog>
+  <dialog id="compose-dialog" class="modal compose-modal" aria-labelledby="compose-title">
+    <button class="icon-button modal-close" data-close type="button" aria-label="Close story editor"><svg><use href="#i-close"/></svg></button>
+    <p class="eyebrow">YOUR SCENT. YOUR STORY.</p><h2 id="compose-title">A little moment worth sharing.</h2><p class="modal-intro">Tell us what you love, what you’ve learned, or what you’re wondering.</p>
+    <form id="post-form">
+      <div class="form-grid"><label>Fragrance<select name="product" required><option value="general">Just chatting</option value="white-tea">White Tea Muse</option><option value="lavender">Dreamy Lavender</option><option value="osmanthus">Osmanthus Moon</option><option value="discovery-set">Discovery Set</option></select></label><label>Conversation<select name="topic" required><option value="stories">Scent story</option><option value="photos">Photos &amp; setups</option><option value="questions">Tips &amp; questions</option></select></label></div>
+      <label>Give your story a title<input name="title" minlength="3" maxlength="120" required placeholder="A small upgrade to my morning commute…"></label>
+      <label for="post-body">Your experience</label><textarea id="post-body" name="body" rows="5" maxlength="3000" required placeholder="How does it look? How does it feel? Tell us your story…"></textarea>
+      <div class="editor-tools"><div class="emoji-picker" data-for="post-body"><button class="emoji-toggle" type="button" aria-expanded="false"><svg><use href="#i-smile"/></svg> Add emoji</button><div class="emoji-options" hidden></div></div><span class="character-count"><span id="body-count">0</span> / 3,000</span></div>
+      <label class="rating-label">Your rating <span>(optional)</span><select name="rating"><option value="">No rating</option><option value="5">★★★★★ — Love it</option><option value="4">★★★★☆ — Really good</option><option value="3">★★★☆☆ — It’s okay</option><option value="2">★★☆☆☆ — Could be better</option><option value="1">★☆☆☆☆ — Not for me</option></select></label>
+      <div class="upload-area" id="drop-zone"><svg><use href="#i-image"/></svg><div><label for="photo-input" class="upload-label">Add a few photos <span>or drop them here</span></label><p>Up to 4 photos · JPG, PNG or WebP · 8 MB each</p></div><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Choose photos"></div>
+      <div id="photo-previews" class="photo-previews"></div><p class="form-note">Photos are resized before sharing. Share your own images and keep personal details out of frame.</p>
+      <p class="form-error" id="post-error" role="alert" hidden></p>
+      <div class="form-footer"><p>Every experience is welcome.<br>Let’s keep it kind and helpful.</p><button class="button primary" id="post-submit" type="submit">Publish story <svg><use href="#i-arrow"/></svg></button></div>
+    </form>
+  </dialog>
+  <dialog id="lightbox" class="lightbox" aria-label="Community photo viewer"><button class="icon-button lightbox-close" data-close type="button" aria-label="Close photo viewer"><svg><use href="#i-close"/></svg></button><button id="photo-prev" class="lightbox-arrow" type="button" aria-label="Previous photo">←</button><figure><img id="lightbox-image" alt=""><figcaption id="lightbox-caption"></figcaption></figure><button id="photo-next" class="lightbox-arrow" type="button" aria-label="Next photo">→</button></dialog>
+  <dialog id="guidelines-dialog" class="modal" aria-labelledby="guidelines-title"><button class="icon-button modal-close" data-close type="button" aria-label="Close guidelines"><svg><use href="#i-close"/></svg></button><p class="eyebrow">ROOM FOR EVERYONE</p><h2 id="guidelines-title">Good conversations<br>start with kindness.</h2><ol class="guideline-list"><li><strong>Keep it real.</strong>Share your own experience and your own photos. Honest feedback, including criticism, is welcome.</li><li><strong>Make it helpful.</strong>Stay on topic, respect other members, and leave out advertising and spam.</li><li><strong>Protect your privacy.</strong>Don’t post order numbers, addresses, faces without permission, or private contact details.</li><li><strong>Look out for each other.</strong>Report inappropriate content. Our moderators can remove posts and replies that break these guidelines.</li></ol><p class="form-note">Community experiences are shared by members. Purchases are not verified.</p></dialog>
+  <dialog id="confirm-dialog" class="modal small-modal" aria-labelledby="confirm-title"><h2 id="confirm-title">Delete this story?</h2><p id="confirm-description" class="modal-intro">This cannot be undone.</p><div class="dialog-actions"><button class="button secondary" data-close type="button">Keep it</button><button class="button danger" id="confirm-action" type="button">Delete</button></div></dialog>
+  <dialog id="report-dialog" class="modal small-modal" aria-labelledby="report-title"><button class="icon-button modal-close" data-close type="button" aria-label="Close report"><svg><use href="#i-close"/></svg></button><h2 id="report-title">Help keep this space kind.</h2><form id="report-form"><label>What should we look into?<textarea name="reason" required minlength="3" maxlength="500" rows="4" placeholder="Tell our moderators what’s wrong…"></textarea></label><p class="form-error" id="report-error" role="alert" hidden></p><button class="button primary full-width" type="submit">Send report</button></form></dialog>
+  <dialog id="moderation-dialog" class="modal" aria-labelledby="moderation-title"><button class="icon-button modal-close" data-close type="button" aria-label="Close moderation"><svg><use href="#i-close"/></svg></button><h2 id="moderation-title">Community reports</h2><p class="modal-intro">Review reported content before removing it.</p><div id="reports"></div></dialog>
+</body>
+</html>

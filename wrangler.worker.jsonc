@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vmate-community",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/media/*"]
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "vmate-community",
+    "database_id": "00000000-0000-0000-0000-000000000000",
+    "migrations_dir": "migrations"
+  }],
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "vmate-community-photos" }],
+  "triggers": { "crons": ["0 3 * * *"] },
+  "observability": { "enabled": true }
+}

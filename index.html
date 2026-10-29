@@ -48,6 +48,11 @@
         .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
         .dropdown a { display: block; padding: 15px 20px; font-size: 14px; font-weight: 500; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
         .dropdown a:hover { background: #f9f9f9; color: #0f52ba; }
+        .community-nav-link { font-size: 13px; font-weight: 600; white-space: nowrap; }
+        .community-home { background: #eef2f8; padding: 64px 24px; text-align: center; }
+        .community-home .community-eyebrow { color: #0f52ba; font-size: 12px; font-weight: 700; letter-spacing: 2px; margin-bottom: 16px; }
+        .community-home h2 { font-size: 32px; margin-bottom: 16px; }
+        .community-home .community-description { color: #626875; line-height: 1.8; max-width: 560px; margin: 0 auto 24px; }
         .nav-icons { display: flex; align-items: center; gap: 20px; }
         .nav-icons svg { width: 22px; height: 22px; cursor: pointer; transition: transform 0.2s; }
         .nav-icons svg:hover { transform: scale(1.1); }
@@ -268,6 +273,9 @@
 
             header { padding: 15px 20px; }
             .logo img { height: 28px; }
+            .header-right { gap: 14px; }
+            .nav-icons { gap: 12px; }
+            .community-nav-link { font-size: 12px; }
             .nav-links { display: none; } 
 
             .hero-content h1 { font-size: 24px; margin-bottom: 8px; }
@@ -356,6 +364,7 @@
                 <div class="nav-item"><div class="nav-item-title">About Us</div></div>
             </div>
             
+            <a href="community.html" class="community-nav-link">Community ↗</a>
             <div class="nav-icons">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
@@ -540,6 +549,13 @@
             </div>
         </div>
     </div>
+
+    <section class="community-home">
+        <p class="community-eyebrow">THE VMATE COMMUNITY</p>
+        <h2>Every drive has a story.</h2>
+        <p class="community-description">Share your favourite scent, show us your car setup, and find a little inspiration from the vmate community.</p>
+        <a href="community.html" class="btn-shop">Join the conversation <span class="arrow">↗</span></a>
+    </section>
 
     <div class="vision-banner protect-section" oncontextmenu="return false;">
         <div class="vision-content">

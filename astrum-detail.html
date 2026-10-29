@@ -178,7 +178,7 @@
         <nav class="site-nav" aria-label="Main navigation">
             <a href="index.html#layer1">Collections</a>
             <a href="#product-details">Product details</a>
-            <a href="index.html" class="header-cta">Back to home</a>
+            <a href="community.html" class="header-cta">Community ↗</a>
         </nav>
     </header>
 
@@ -230,6 +230,7 @@
                 <div class="purchase-actions">
                     <a class="buy-amazon" id="amazonLink" href="https://www.amazon.com.au/dp/B0GZVDCY53" target="_blank" rel="noopener">Buy on Amazon</a>
                     <a class="back-home" href="#product-details">Explore product details ↓</a>
+                    <a class="back-home" id="communityLink" href="community.html">Share your experience ↗</a>
                 </div>
             </div>
         </section>
@@ -429,6 +430,7 @@
             document.getElementById('details-title').textContent = `${product.name} details`;
             document.title = `${product.name} | vmate`;
             amazonLink.href = product.amazonUrl;
+            document.getElementById("communityLink").href = `community.html?product=${activeProductKey}`;
             amazonLink.setAttribute('aria-label', `Buy ${product.name} on Amazon`);
             variants.forEach(variant => variant.classList.toggle('active', variant.dataset.variant === activeProductKey));
 
