@@ -1,3 +1,5 @@
+import { createPhotoKey, putPhoto, getPhoto, deletePhoto, PhotoStorageError } from './photos.js';
+
 const PRODUCTS = new Set(['white-tea', 'lavender', 'osmanthus', 'discovery-set', 'general']);
 const TOPICS = new Set(['stories', 'photos', 'questions']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
@@ -113,10 +115,12 @@ export function imageInfo(bytes) {
   return { mime, width, height };
 }
 async function cleanup(env) {
-  const { results } = await env.DB.prepare('SELECT object_key FROM pending_deletions LIMIT 100').all();
+  const { results } = await env.DB.prepare('SELECT object_key FROM pending_deletions LIMIT 20').all();
   for (const row of results) {
-    await env.PHOTOS.delete(row.object_key);
-    await env.DB.prepare('DELETE FROM pending_deletions WHERE object_key=?').bind(row.object_key).run();
+    try {
+      await deletePhoto(env, row.object_key);
+      await env.DB.prepare('DELETE FROM pending_deletions WHERE object_key=?').bind(row.object_key).run();
+    } catch { console.error('Photo deletion deferred; retained for retry.'); }
   }
   await env.DB.batch([
     env.DB.prepare('DELETE FROM sessions WHERE expires_at<?').bind(Date.now()),
@@ -142,7 +146,7 @@ async function getPost(env, postId) {
 }
 async function api(request, env, ctx) {
   const url = new URL(request.url); const path = url.pathname; const method = request.method;
-  if (!env.DB || !env.PHOTOS) fail(503, 'The community is being set up. Please check back soon.');
+  if (!env.DB) fail(503, 'The community is being set up. Please check back soon.');
   if (!['GET', 'HEAD'].includes(method)) {
     if (request.headers.get('X-VMATE-Request') !== '1' || (request.headers.has('Origin') && request.headers.get('Origin') !== url.origin)) fail(403, 'Please submit from the vmate website.');
   }
@@ -211,10 +215,10 @@ async function api(request, env, ctx) {
     for (const file of files) {
       if (typeof file === 'string' || !file.size || file.size > 2 * 1024 * 1024) fail(400, 'Each prepared photo must be no larger than 2 MB.');
       const bytes = new Uint8Array(await file.arrayBuffer()); const info = imageInfo(bytes);
-      const imageId = crypto.randomUUID(); images.push({ id: imageId, key: `${postId}/${imageId}`, bytes, mime: info.mime });
+      const imageId = crypto.randomUUID(); images.push({ id: imageId, key: createPhotoKey(env, postId, imageId), bytes, mime: info.mime });
     }
     try {
-      for (const image of images) await env.PHOTOS.put(image.key, image.bytes, { httpMetadata: { contentType: image.mime } });
+      for (const image of images) await putPhoto(env, image);
       await env.DB.batch([
         env.DB.prepare('INSERT INTO posts VALUES(?,?,?,?,?,?,?,?)').bind(postId, user.id, title, body, data.product, data.topic, rating, Date.now()),
         ...images.map((image, i) => env.DB.prepare('INSERT INTO images VALUES(?,?,?,?,?)').bind(image.id, postId, image.key, image.mime, i)),
@@ -310,17 +314,20 @@ export default {
         const imageId = id(url.pathname.slice(7));
         const image = await env.DB.prepare('SELECT object_key,mime FROM images WHERE id=?').bind(imageId).first();
         if (!image) fail(404, 'This photo is no longer available.');
-        const object = await env.PHOTOS.get(image.object_key);
+        const object = await getPhoto(env, image.object_key, request.method);
         if (!object) fail(404, 'This photo is no longer available.');
         return new Response(request.method === 'HEAD' ? null : object.body, { headers: {
-          'Content-Type': image.mime, 'Content-Length': String(object.size), 'X-Content-Type-Options': 'nosniff',
-          'Content-Security-Policy': "default-src 'none'; sandbox", 'Cache-Control': 'no-cache', 'ETag': object.httpEtag,
+          'Content-Type': object.mime || image.mime, 'X-Content-Type-Options': 'nosniff',
+          'Content-Security-Policy': "default-src 'none'; sandbox", 'Cache-Control': 'no-cache',
+          ...(object.size != null ? { 'Content-Length': String(object.size) } : {}),
+          ...(object.httpEtag ? { 'ETag': object.httpEtag } : {}),
         } });
       }
       return env.ASSETS.fetch(request);
     } catch (error) {
-      if (!(error instanceof HttpError)) console.error('Community request failed:', error.message);
-      return json({ error: error instanceof HttpError ? error.message : 'The community is temporarily unavailable. Please try again.' }, error.status || 503);
+      const known = error instanceof HttpError || error instanceof PhotoStorageError;
+      if (!known) console.error('Community request failed:', error.message);
+      return json({ error: known ? error.message : 'The community is temporarily unavailable. Please try again.' }, known ? error.status : 503);
     }
   },
   async scheduled(_event, env, ctx) { ctx.waitUntil(cleanup(env)); },

@@ -14,7 +14,7 @@ test('image validation rejects active content and excessive dimensions', () => {
 });
 
 test('Cloudflare D1/R2: shared posts, images, auth, comments, permissions and moderation', async t => {
-  const mf = new Miniflare(convertV4MiniflareOptions({ modules: true, scriptPath: new URL('../worker/index.js', import.meta.url).pathname,
+  const mf = new Miniflare(convertV4MiniflareOptions({ modules: ['index.js', 'photos.js'].map(name => ({ type: 'ESModule', path: new URL('../worker/' + name, import.meta.url).pathname })),
     compatibilityDate: '2026-10-01', d1Databases: { DB: 'test-community' }, r2Buckets: ['PHOTOS'] }));
   t.after(() => mf.dispose());
   const db = await mf.getD1Database('DB');
